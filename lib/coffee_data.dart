@@ -1,6 +1,5 @@
-import 'package:CoffeeAppUI/models/cofee_model.dart';
 import 'package:flutter/material.dart';
-
+import 'coffee_model.dart';
 
 List<Coffee> _coffee_list = [
   Coffee(

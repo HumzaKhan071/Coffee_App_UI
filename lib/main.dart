@@ -1,27 +1,24 @@
+import 'package:CoffeeAppUI/home.dart';
 import 'package:flutter/material.dart';
-
-import 'login_screen.dart';
+import './login_scrreen.dart';
+import './coffee_details.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
-      title: 'Coffee App Ui',
+      debugShowCheckedModeBanner: false,
+      title: 'Coffee App',
       theme: ThemeData(
-       
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: "Tajawal",
-      ),
-      home:LoginScreen()
+          primarySwatch: Colors.amber,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: "Tajawal"),
+      home: LoginScreen(),
     );
   }
 }
