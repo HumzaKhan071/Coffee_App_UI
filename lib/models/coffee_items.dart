@@ -1,3 +1,4 @@
+import 'package:CoffeeAppUI/coffee_details.dart';
 import 'package:CoffeeAppUI/models/coffee_data.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,14 @@ class CoffeeItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: null,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => CoffeeDetails(
+                      index: index,
+                    )));
+      },
       child: Container(
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(

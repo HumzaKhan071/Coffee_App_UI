@@ -1,9 +1,10 @@
 import 'package:CoffeeAppUI/models/coffee_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CoffeeDetails extends StatefulWidget {
-  int index;
+ final  int index;
 
   CoffeeDetails({this.index});
 
@@ -14,7 +15,7 @@ class CoffeeDetails extends StatefulWidget {
 class _CoffeeDetailsState extends State<CoffeeDetails> {
   @override
   Widget build(BuildContext context) {
-    int index = 1;
+   
     var rating = 3.0;
     int quantity = 1;
 
@@ -23,7 +24,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
     bool isFavorite = true;
 
     return Scaffold(
-      backgroundColor: coffee_list[index].backgroundColor,
+      backgroundColor: coffee_list[widget.index].backgroundColor,
       body: SafeArea(
           child: Container(
         child: Column(
@@ -68,9 +69,9 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                       height: 300,
                       width: 300,
                       child: Hero(
-                          tag: coffee_list[index].image,
+                          tag: coffee_list[widget.index].image,
                           child: Image.asset(
-                            coffee_list[index].image,
+                            coffee_list[widget.index].image,
                             fit: BoxFit.contain,
                           )),
                     )),
@@ -81,6 +82,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                       padding: EdgeInsets.all(30),
                       height: MediaQuery.of(context).size.height * 0.6,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +96,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                                   iconSize: 40,
                                   icon: Icon(
                                     Icons.arrow_back_ios,
-                                    color: coffee_list[index].backgroundColor,
+                                    color: coffee_list[widget.index].backgroundColor,
                                   )),
                               IconButton(
                                   onPressed: () {
@@ -105,7 +107,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                                     isFavorite
                                         ? Icons.favorite
                                         : Icons.favorite_border,
-                                    color: coffee_list[index].backgroundColor,
+                                    color: coffee_list[widget.index].backgroundColor,
                                   ))
                             ],
                           ),
@@ -113,7 +115,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                             children: [
                               Container(
                                 child: Text(
-                                  coffee_list[index].image,
+                                  coffee_list[widget.index].image,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 45,
@@ -138,17 +140,131 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                                       });
                                     },
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   Container(
                                     padding: EdgeInsets.only(top: 10),
-                                    child: Text(rating.toString(),style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w500 
-                                    ),),
+                                    child: Text(
+                                      rating.toString(),
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   )
                                 ],
                               )
                             ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 45,
+                                child: Text(
+                                  "\$${coffee_list[widget.index].price}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (quantity > 0) {
+                                          quantity -= 1;
+                                        }
+                                      });
+                                    },
+                                    icon: Icon(Icons.remove),
+                                    iconSize: 40,
+                                    color: coffee_list[widget.index].backgroundColor,
+                                  ),
+                                  Container(
+                                    height: 23,
+                                    width: 30,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      quantity.toString(),
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        quantity += 1;
+                                      });
+                                    },
+                                    icon: Icon(Icons.add_circle),
+                                    iconSize: 40,
+                                    color: coffee_list[widget.index].backgroundColor,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 30,
+                                child: Text(
+                                  "L",
+                                  style: TextStyle(
+                                    fontSize: 40,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              CupertinoSwitch(
+                                  trackColor:
+                                      coffee_list[widget.index].backgroundColor,
+                                  activeColor:
+                                      coffee_list[widget.index].backgroundColor,
+                                  value: switchvalue,
+                                  onChanged: (value) {
+                                    switchvalue = value;
+                                  }),
+                                   SizedBox(
+                                width: 10,
+                              ),
+                                Container(
+                                height: 30,
+                                child: Text(
+                                  "S",
+                                  style: TextStyle(
+                                    fontSize: 40,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 70,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            decoration: BoxDecoration(
+                              color: coffee_list[widget.index].backgroundColor,
+                              borderRadius: BorderRadius.circular(100),
+
+                            ),
+                            child: FlatButton(onPressed: (){},
+                            child: Container(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Text("Order Now",style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 30
+                              ),),
+                            ),
+                            ),
                           )
                         ],
                       ),
