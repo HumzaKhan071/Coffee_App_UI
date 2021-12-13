@@ -1,4 +1,6 @@
-import 'package:CoffeeAppUI/home.dart';
+import 'package:CoffeeAppUI/login.dart';
+import 'package:CoffeeAppUI/register.dart';
+
 import 'package:CoffeeAppUI/widgets/login_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () => Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => Login(),
                             ),
                           ),
                         ),
@@ -98,7 +100,12 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 23,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => Register(),
+                            ),
+                          ),
                         ),
                       ),
                     ),
