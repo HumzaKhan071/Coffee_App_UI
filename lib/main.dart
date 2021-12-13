@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Coffee App Ui',
       theme: ThemeData(
        
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Tajawal",
       ),
