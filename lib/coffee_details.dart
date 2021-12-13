@@ -115,7 +115,7 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                             children: [
                               Container(
                                 child: Text(
-                                  coffee_list[widget.index].image,
+                                  coffee_list[widget.index].name,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 45,

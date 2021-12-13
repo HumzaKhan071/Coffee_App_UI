@@ -111,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     LoginButton(
                       bgColor: Color(0xff1976D2),
-                      image: "assets/images/facbook.png",
+                      image: "assets/images/facebook.png",
                       imgSize: 25,
                       text: "Connect with Facebook",
                       textColor: Colors.white,
