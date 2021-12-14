@@ -1,4 +1,7 @@
+import 'package:CoffeeAppUI/cart.dart';
 import 'package:CoffeeAppUI/coffee_data.dart';
+import 'package:CoffeeAppUI/cart.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -12,6 +15,20 @@ class CoffeeDetails extends StatefulWidget {
 }
 
 class _CoffeeDetailsState extends State<CoffeeDetails> {
+  TextEditingController taskcontroller = TextEditingController();
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('CART').snapshots();
+
+  addData() async {
+    await FirebaseFirestore.instance.collection("CART").add({
+      "CART": "${ coffee_list[widget.index].name}",
+      
+      "IMAGE": "${coffee_list[widget.index].image}",
+
+      
+    });
+    taskcontroller.clear();
+  }
   var rating = 3.0;
   int quantity = 1;
   bool switchvalue = true;
@@ -39,11 +56,20 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                         "assets/images/menu.png",
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      width: 60,
-                      child: Image.asset(
-                        "assets/images/shopping-cart.png",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => Cart(),
+                            ));
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 60,
+                        child: Image.asset(
+                          "assets/images/shopping-cart.png",
+                        ),
                       ),
                     )
                   ],
@@ -285,7 +311,13 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: FlatButton(
-                                  onPressed: () {},
+                                  onPressed: (){
+
+                                    addData();
+                        taskcontroller.clear();
+
+                                  
+                                  },
                                   child: Container(
                                     padding: EdgeInsets.only(
                                       top: 7,
