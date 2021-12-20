@@ -20,6 +20,13 @@ class _RegisterState extends State<Register> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailcontroller.text, password: passwordcontroller.text);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+
+               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Account Created Successfully'),
+        duration: const Duration(seconds: 1),
+        
+      ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

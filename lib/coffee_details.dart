@@ -1,7 +1,10 @@
 import 'package:CoffeeAppUI/cart.dart';
 import 'package:CoffeeAppUI/coffee_data.dart';
-import 'package:CoffeeAppUI/cart.dart';
+
+import 'package:CoffeeAppUI/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -16,7 +19,9 @@ class CoffeeDetails extends StatefulWidget {
 
 class _CoffeeDetailsState extends State<CoffeeDetails> {
   TextEditingController taskcontroller = TextEditingController();
-  final Stream<QuerySnapshot> _usersStream =
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('CART').snapshots();
 
   addData() async {
@@ -311,12 +316,9 @@ class _CoffeeDetailsState extends State<CoffeeDetails> {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: FlatButton(
-                                  onPressed: (){
-
+                                  onPressed: () {
                                     addData();
-                        taskcontroller.clear();
-
-                                  
+                                    taskcontroller.clear();
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(

@@ -1,7 +1,10 @@
 import 'package:CoffeeAppUI/home.dart';
 import 'package:CoffeeAppUI/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   Login({
@@ -12,8 +15,9 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+TextEditingController emailcontroller = TextEditingController();
+
 class _LoginState extends State<Login> {
-  TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   sl() async {
     try {
@@ -21,6 +25,11 @@ class _LoginState extends State<Login> {
           .signInWithEmailAndPassword(
               email: emailcontroller.text, password: passwordcontroller.text);
       Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Login Successfully'),
+        duration: const Duration(seconds: 1),
+        
+      ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -151,6 +160,7 @@ class _LoginState extends State<Login> {
                   child: FlatButton(
                     onPressed: () {
                       sl();
+                     
                     },
                     child: Text("Login"),
                     color: Theme.of(context).primaryColor,
@@ -170,8 +180,12 @@ class _LoginState extends State<Login> {
                       style: TextStyle(fontSize: 18),
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => Register())),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => Register(
+                                    togScreen: null,
+                                  ))),
                       child: Text(
                         "Register",
                         style: TextStyle(

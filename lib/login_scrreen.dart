@@ -1,11 +1,43 @@
+import 'package:CoffeeAppUI/home.dart';
 import 'package:CoffeeAppUI/login.dart';
 import 'package:CoffeeAppUI/register.dart';
 
 import 'package:CoffeeAppUI/widgets/login_buttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Login Successfully'),
+        duration: const Duration(seconds: 1),
+        
+      ));
+
+     
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,13 +149,15 @@ class LoginScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    LoginButton(
-                      bgColor: Colors.white,
-                      image: "assets/images/google.png",
-                      imgsize: 25,
-                      text: "Connect with Google",
-                      textColor: Colors.black,
-                    ),
+                    FlatButton(
+                        onPressed: () {
+                          signInWithGoogle();
+                        },
+                        child: Container(
+
+                          child: Image.asset("assets/images/google.png",),
+                          
+                        )),
                     SizedBox(
                       height: 20,
                     ),
