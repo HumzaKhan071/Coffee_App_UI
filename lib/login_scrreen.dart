@@ -15,8 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -29,12 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Login Successfully'),
-        duration: const Duration(seconds: 1),
-        
-      ));
+      content: const Text('Login Successfully'),
+      duration: const Duration(seconds: 1),
+    ));
 
-     
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
@@ -154,10 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           signInWithGoogle();
                         },
                         child: Container(
-
-                          child: Image.asset("assets/images/google.png",),
-                          
-                        )),
+                            height: 80,
+                            child: Image.asset("assets/images/google.png"))),
                     SizedBox(
                       height: 20,
                     ),
