@@ -39,7 +39,7 @@ class _CartState extends State<Cart> {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
 
                   return ListView(
